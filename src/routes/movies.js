@@ -1,0 +1,1 @@
+// responsável por gerenciar as rotas do CRUD e de geração do PDF
