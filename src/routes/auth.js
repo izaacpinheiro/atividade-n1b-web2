@@ -15,6 +15,7 @@ const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 
 // rota POST /login
 router.post('/', async (req, res) => {
+    // autenticação de usuário
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ error: 'email e senha obrigatórios'});
 
@@ -24,6 +25,7 @@ router.post('/', async (req, res) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(401).json({ error: 'credenciais inválidas'});
 
+    // gera o token JWT
     const token = jwt.sign({ sub:user.id, email: user.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
     return res.json({ token });
 });
