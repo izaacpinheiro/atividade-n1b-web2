@@ -37,8 +37,11 @@ npm install
 ### 4️⃣ Configurar variáveis de ambiente
 Crie um arquivo **.env** na raiz do projeto com o seguinte conteúdo:
 ```
-JWT_SECRET=segredo-super-seguro
+PORT=3000
+JWT_SECRET=minha_chave_super_segura_12345
+JWT_EXPIRES_IN=4h
 ```
+> ⚠️ Apenas para exemplo de uso da aplicação.
 
 ### 5️⃣ Rodar o servidor
 ```bash
