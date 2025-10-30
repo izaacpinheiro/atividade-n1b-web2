@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 app.use('/login', autoRoutes)
 
 // Rotas privadas
-app.use('/movies', movieRoutes)
+app.use('/filmes', movieRoutes)
 
 // inicia o servidor
 const PORTA = process.env.PORT;
