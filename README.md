@@ -8,7 +8,6 @@ O projeto permite:
 - Fazer login (autenticação com token JWT)  
 - Restringir acesso apenas a dias úteis (segunda a sexta)
 
-
 ## 🚀 Tecnologias Utilizadas
 
 - **Node.js** — ambiente de execução JavaScript  
@@ -45,7 +44,7 @@ JWT_EXPIRES_IN=4h
 
 ### 5️⃣ Rodar o servidor
 ```bash
-npm start
+node src/app.js
 ```
 
 O servidor iniciará em:
@@ -60,7 +59,7 @@ http://localhost:3000
 | `POST` | `/login` | Faz login e retorna um token JWT | ❌ Não |
 | `GET` | `/filmes` | Lista todos os filmes | ✅ Sim |
 | `POST` | `/filmes` | Adiciona um novo filme | ✅ Sim |
-| `DELETE` | `/filmes/:id` | Remove um filme pelo ID | ✅ Sim |
+| `DELETE` | `/filmes/:code` | Remove um filme pelo código | ✅ Sim |
 | `GET` | `/filmes/pdf` | Gera PDF da lista de filmes | ✅ Sim |
 
 > ⚠️ As rotas protegidas exigem o token JWT no cabeçalho:  
