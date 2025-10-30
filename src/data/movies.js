@@ -13,6 +13,12 @@ const movies = [
         nota: 8,
         code: "mv-2",
     },
+    {
+        id: "3",
+        title: "A Viagem de Chihiro",
+        nota: 10,
+        code: "mv-3",
+    },
 ];
 
 // dados mockados dos usuários
