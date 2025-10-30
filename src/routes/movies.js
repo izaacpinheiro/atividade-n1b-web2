@@ -41,7 +41,7 @@ router.post("/", (req, res) => {
         code,
     };
     movies.push(newMovie);
-    res.status(201), json(newMovie);
+    res.status(201), res.json(newMovie);
 });
 
 // rota DELETE /movies/:id
