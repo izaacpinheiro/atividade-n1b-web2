@@ -60,6 +60,7 @@ http://localhost:3000
 | `GET` | `/filmes` | Lista todos os filmes | ✅ Sim |
 | `POST` | `/filmes` | Adiciona um novo filme | ✅ Sim |
 | `DELETE` | `/filmes/:code` | Remove um filme pelo código | ✅ Sim |
+| `GET` | `/filmes/search?code` | Pesquisa um filme pelo código | ✅ Sim |
 | `GET` | `/filmes/pdf` | Gera PDF da lista de filmes | ✅ Sim |
 
 > ⚠️ As rotas protegidas exigem o token JWT no cabeçalho:  
