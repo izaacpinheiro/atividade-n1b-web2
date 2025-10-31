@@ -44,26 +44,23 @@ router.post("/", (req, res) => {
     res.status(201), res.json(newMovie);
 });
 
-// rota DELETE /movies/:id
-router.delete("/:id", (req, res) => {
-    const id = req.params.id;
-    const idx = movies.findIndex((m) => m.id === id);
-    if (idx === -1)
+// rota DELETE /filmes/:code
+router.delete("/:code", (req, res) => {
+    const { code } = req.params;
+    const index = movies.findIndex((m) => m.code === code);
+    if (index === -1)
         return res.status(401).json({ error: "Filme não encontado" });
 
-    const removed = movies.splice(idx, 1)[0];
-    res.json({ removed });
+    movies.splice(index, 1);
+    res.json({ message: 'Filme deletado.' });
 });
 
-// rota GET /movies/search?id -> busca por id
+// rota GET /filmes/search?code -> busca pelo código
 router.get("/search", (req, res) => {
-    const { id } = req.query;
-    if (!id)
-        return res
-            .status(400)
-            .json({ error: "ID é obrigatório para a pesquisa" });
+    const { code } = req.query;
+    if (!code) return res.status(400).json({ error: "O código do filme é obrigatório para a pesquisa" });
 
-    const found = movies.filter((m) => m.id === id);
+    const found = movies.filter((m) => m.code === code);
     res.json(found);
 });
 
