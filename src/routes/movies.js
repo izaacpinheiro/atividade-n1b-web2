@@ -5,7 +5,7 @@ const { movies } = require("../data/movies");
 const { v4: uuidv4 } = require("uuid");
 const authMiddleware = require("../middleware/auth");
 const weekdayMiddleware = require("../middleware/weekday");
-const { generateMoviesPDF } = require("../utils/pdfGenerator");
+const { generatePDF } = require("../utils/pdfGenerator");
 
 const router = express.Router();
 
@@ -68,7 +68,7 @@ router.get("/search", (req, res) => {
 router.get("/pdf", async (req, res) => {
     res.setHeader("Content-Disposition", "attachment; filename=movies.pdf");
     res.setHeader("Content-Type", "application/pdf");
-    generateMoviesPDF(movies, res);
+    generatePDF(movies, res);
 });
 
 module.exports = router;
