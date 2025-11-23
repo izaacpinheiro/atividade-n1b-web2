@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 
+// os filmes não serão mais mockados em memória
 const movies = [
     {
         id: "1",
@@ -33,6 +34,11 @@ const users = [
         email: "pedro@exemplo.com",
         password: bcrypt.hashSync("4321", 10),
     },
+        {
+        id: "3",
+        email: "natanael@exemplo.com",
+        password: bcrypt.hashSync("senha123", 10),
+    }
 ];
 
 module.exports = { movies, users };
