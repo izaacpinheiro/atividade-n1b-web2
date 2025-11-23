@@ -7,4 +7,4 @@ const filme = mongoose.Schema({
     code: String
 });
 
-module.exports('Filme', filme);
+module.exports = mongoose.model('Filme', filme);
