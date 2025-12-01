@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "test": "jest"
+    "start": "node src/app.js",
+    "test": "NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",

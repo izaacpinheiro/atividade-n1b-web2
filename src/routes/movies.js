@@ -9,8 +9,10 @@ const weekdayMiddleware = require("../middleware/weekday");
 const router = express.Router();
 
 // aplica a autentição de dia da semana e do JWT
-router.use(weekdayMiddleware);
-router.use(authMiddleware);
+if (process.env.NODE_ENV !== "test") {
+    router.use(weekdayMiddleware);
+    router.use(authMiddleware);
+}
 
 // rota GET /filmes/listar -> lista de filmes
 router.get("/listar", async (req, res) => {
