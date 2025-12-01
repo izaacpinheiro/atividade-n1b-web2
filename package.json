@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "test": "NODE_ENV=test jest"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,8 @@
     "mongoose": "^8.20.0",
     "pdfkit": "^0.17.2",
     "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
   }
 }
