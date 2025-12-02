@@ -185,7 +185,14 @@ Retorno:
 
 ## 🛠 Testes
 
-Primeiro inicie o servidor:
+Antes de rodar os testes unitários, vá ao arquivo `/src/routes/movies.js` e comente as seguintes linhas:
+```bash
+router.use(weekdayMiddleware); -> // router.use(weekdayMiddleware);
+router.use(authMiddleware);    -> // router.use(authMiddleware);
+```
+> É necessário comentar essas linhas pois se não os middlewares serão processados e os testes não conseguirão fazer as requisições com o Axios.
+
+Rode o servidor:
 ```bash
 npm start
 ```
