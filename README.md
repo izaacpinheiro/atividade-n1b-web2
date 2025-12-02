@@ -1,20 +1,13 @@
-# 🎬 Sistema de Filmes — Node.js + Express
+# 🎬 Sistema de Filmes
 
-Um sistema simples de gerenciamento de filmes desenvolvido em **Node.js**, com **Express**, **JWT** e **bcrypt**.  
+Um sistema simples de gerenciamento de filmes.  
 O projeto permite:
-- Cadastrar e listar filmes (mockados em memória)  
-- Adicionar e remover filmes  
-- Gerar um PDF com a lista de filmes  
-- Fazer login (autenticação com token JWT)  
+- Fazer login (autenticação com token JWT)
+- Cadastrar e listar filmes
+- Adicionar e remover filmes
+- Pesquisar filmes cadastrados
+- Atualizar nota dos filmes
 - Restringir acesso apenas a dias úteis (segunda a sexta)
-
-## 🚀 Tecnologias Utilizadas
-
-- **Node.js** — ambiente de execução JavaScript  
-- **Express** — framework web para rotas e middlewares  
-- **JWT (jsonwebtoken)** — autenticação de usuários  
-- **bcrypt** — hash de senha  
-- **pdfkit** — geração de PDFs  
 
 ## ⚙️ Como Rodar o Projeto
 
@@ -33,44 +26,176 @@ cd atividade-n1b-web2
 npm install
 ```
 
-### 4️⃣ Configurar variáveis de ambiente
-Crie um arquivo **.env** na raiz do projeto com o seguinte conteúdo:
-```
-PORT=3000
-JWT_SECRET=minha_chave_super_segura_12345
-JWT_EXPIRES_IN=4h
-```
-> ⚠️ Apenas para exemplo de uso da aplicação.
-
-### 5️⃣ Rodar o servidor
+### 4️⃣ Rodar o servidor
 ```bash
-node src/app.js
+npm start
 ```
 
 O servidor iniciará em:
 ```
 http://localhost:3000
 ```
+## 📚 Documentação
 
-## 🔑 Rotas Principais
+### Login
+- Faz login e retorna um token JWT
+- Rota não protegida
+- Método: `POST`
 
-| Método | Rota | Descrição | Protegida |
-|:------:|:------|:-----------|:-----------|
-| `POST` | `/login` | Faz login e retorna um token JWT | ❌ Não |
-| `GET` | `/filmes` | Lista todos os filmes | ✅ Sim |
-| `POST` | `/filmes` | Adiciona um novo filme | ✅ Sim |
-| `DELETE` | `/filmes/:code` | Remove um filme pelo código | ✅ Sim |
-| `GET` | `/filmes/search?code` | Pesquisa um filme pelo código | ✅ Sim |
-| `GET` | `/filmes/pdf` | Gera PDF da lista de filmes | ✅ Sim |
-
+Endpoint:
+```bash
+http://localhost:3000/filmes/login
+```
+Body JSON:
+```bash
+{
+    "email": "email",
+    "password": "password"
+}
+```
+Retorno:
+```bash
+{
+    "token": "tokenjwt"
+}
+```
 > ⚠️ As rotas protegidas exigem o token JWT no cabeçalho:  
 > `Authorization: Bearer <seu_token_aqui>`
+
+### Listar Filmes
+- Lista todos os filmes cadastrados
+- Rota protegida
+- Método: `GET`
+
+Endpoint:
+```bash
+http://localhost:3000/filmes/listar
+```
+Retorno:
+```bash
+{
+	"filmes": [
+		{
+			"_id": "id",
+			"titulo": "filme1",
+			"nota": 10,
+			"code": "mv1",
+			"__v": 0
+		},
+		{
+			"_id": "id",
+			"titulo": "filme2",
+			"nota": 6,
+			"code": "mv2",
+			"__v": 0
+		},
+		.
+        .
+        .
+	]
+}
+```
+### Inserir Filme
+- Adiciona um novo filme
+- Rota protegida
+- Método: `POST`
+
+Endpoint:
+```bash
+http://localhost:3000/filmes/inserir
+```
+Body JSON:
+```bash
+{
+	"titulo": "titulo",
+	"nota": 1,
+	"code": "code"
+}
+```
+Retorno:
+```bash
+{
+	"mensagem": "Novo filme cadastrado."
+}
+```
+### Excluir Filme
+- Remove um filme pelo código
+- Rota protegida
+- Método: `DELETE`
+
+Endpoint:
+```bash
+http://localhost:3000/excluir/code
+```
+Retorno:
+```bash
+{
+	"mensagem": "Exclusão realizada."
+}
+```
+### Pesquisar Filme
+- Pesquisa um filme pelo código
+- Rota protegida
+- Método: `GET`
+
+Endpoint:
+```bash
+http://localhost:3000/filmes/search/code
+```
+Retorno:
+```bash
+{
+	"filme": {
+		"_id": "id",
+		"titulo": "filme",
+		"nota": 10,
+		"code": "code",
+		"__v": 0
+	}
+}
+```
+### Atualizar nota de um Filme
+- Atualiza a nota de um filme pelo código
+- Rota protegida
+- Método: `PUT`
+
+Endpoint:
+```bash
+http://localhost:3000/filmes/atualizar/code
+```
+Body JSON:
+```bash
+{
+	"nota": 10
+}
+```
+Retorno:
+```bash
+{
+	"mensagem": "Nota atualizada.",
+	"filme": {
+		"_id": "id",
+		"titulo": "filme",
+		"nota": 10,
+		"code": "code",
+		"__v": 0
+	}
+}
+```
+
+## 🛠 Testes
+
+Primeiro inicie o servidor:
+```bash
+npm start
+```
+Em outro terminal, rode o comando:
+```bash
+npm test
+```
+Os testes irão ser executados automaticamente e será mostrado suas informações.
 
 ## 📅 Restrições de Acesso
 
 O sistema só pode ser acessado **de segunda a sexta-feira**.  
 Nos fins de semana, o middleware `weekday.js` bloqueia as requisições automaticamente.
-
-## 📄 Geração de PDF
-
-A rota `/filmes/pdf` gera um PDF com a lista atual de filmes e faz o download automaticamente.
