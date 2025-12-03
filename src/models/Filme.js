@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const filme = mongoose.Schema({
     titulo: String,
     nota: Number,
-    code: String
+    code: String,
+    imgUrl: String
 });
 
 module.exports = mongoose.model('Filme', filme);

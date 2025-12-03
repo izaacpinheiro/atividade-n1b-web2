@@ -4,6 +4,7 @@ const express = require("express");
 const Filme = require("../models/Filme")
 const authMiddleware = require("../middleware/auth");
 const weekdayMiddleware = require("../middleware/weekday");
+const { upload } = require("../config/multer");
 
 // router de filmes
 const router = express.Router();
@@ -23,9 +24,10 @@ router.get("/listar", async (req, res) => {
 });
 
 // rota POST /filmes/inserir -> adicionar filme a lista
-router.post("/inserir", async (req, res) => {
+router.post("/inserir", upload.single("imgUrl"), async (req, res) => {
     try {
         const {titulo, nota, code} = req.body;
+        const imgUrl = req.file.location;
 
         if (!titulo || !nota || !code) {
             return res.status(400).json({error: true, mensagem: "Campos obrigatórios: titulo, nota e code."});
@@ -37,7 +39,7 @@ router.post("/inserir", async (req, res) => {
             return res.status(400).json({error: true, mensagem: "Já existe um filme com esse código."})
         }
 
-        await Filme.create({titulo: titulo, nota: nota, code: code})
+        await Filme.create({titulo: titulo, nota: nota, code: code, imgUrl: imgUrl});
         res.json({mensagem: 'Novo filme cadastrado.'})
     } catch (error) {
         res.json({error: true, mensagem: 'Erro durante cadastro do filme.', tipo: error});
