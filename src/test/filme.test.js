@@ -1,5 +1,10 @@
 const axios = require('axios')
 
+// imports para o teste de inserir
+const FormData = require("form-data");
+const fs = require("fs");
+const path = require("path");
+
 describe("GET /filmes/listar", () => {
     test("Deve retornar uma lista de filmes e status 200", async () => {
         const result = await axios.get("http://localhost:3000/filmes/listar");
@@ -11,11 +16,18 @@ describe("GET /filmes/listar", () => {
 
 describe("POST /filmes/inserir", () => {
     test("Deve inserir um filme e status 200", async () => {
-        const result = await axios.post("http://localhost:3000/filmes/inserir", {
-            "titulo": "Filme Teste Jest",
-	        "nota": 1,
-	        "code": "jest1"
-        });
+        const form = new FormData();
+        form.append("titulo", "Filme Teste Jest");
+        form.append("nota", 1);
+        form.append("code", "jest1");
+
+        const imagePath = path.join(__dirname, "imgTest.png");
+        form.append("imgUrl", fs.createReadStream(imagePath));
+
+        const result = await axios.post("http://localhost:3000/filmes/inserir", form,
+            { headers: form.getHeaders() }
+        );
+
         expect(result.status).toBe(200);
         expect(result.data).toHaveProperty("mensagem");
     });
