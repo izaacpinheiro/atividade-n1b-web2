@@ -1,12 +1,14 @@
 # 🎬 Sistema de Filmes
 
-Um sistema simples de gerenciamento de filmes.  
+Um sistema simples de gerenciamento de filmes. Usa MongoDB Atlas para armazenamento dos filmes e S3 para upload das imagens de capa dos filmes.
+
 O projeto permite:
 - Fazer login (autenticação com token JWT)
-- Cadastrar e listar filmes
-- Adicionar e remover filmes
+- Cadastrar filmes
+- Listar filmes cadastrados
+- Remover filmes cadastrados
 - Pesquisar filmes cadastrados
-- Atualizar nota dos filmes
+- Atualizar nota dos filmes cadastrados
 - Restringir acesso apenas a dias úteis (segunda a sexta)
 
 ## ⚙️ Como Rodar o Projeto
@@ -24,6 +26,12 @@ cd atividade-n1b-web2
 ### 3️⃣ Instalar as dependências
 ```bash
 npm install
+```
+
+Para o sistema usar os middlewares de autenticação de usuário e dia da semana, garanta que no arquivo `/src/routes/movies.js`, as seguintes linhas não estejam comentadas:
+```bash
+router.use(weekdayMiddleware);
+router.use(authMiddleware);
 ```
 
 ### 4️⃣ Rodar o servidor
@@ -44,7 +52,7 @@ http://localhost:3000
 
 Endpoint:
 ```bash
-http://localhost:3000/filmes/login
+http://localhost:3000/login
 ```
 Body JSON:
 ```bash
@@ -80,6 +88,7 @@ Retorno:
 			"titulo": "filme1",
 			"nota": 10,
 			"code": "mv1",
+			"imgUrl": "imgUrl.com",
 			"__v": 0
 		},
 		{
@@ -87,6 +96,7 @@ Retorno:
 			"titulo": "filme2",
 			"nota": 6,
 			"code": "mv2",
+			"imgUrl": "imgUrl2.com",
 			"__v": 0
 		},
 		.
@@ -104,14 +114,17 @@ Endpoint:
 ```bash
 http://localhost:3000/filmes/inserir
 ```
-Body JSON:
+Multipart Form:
 ```bash
 {
 	"titulo": "titulo",
 	"nota": 1,
 	"code": "code"
+    "imagem": file.jpg/png
 }
 ```
+> É necessário ter a imagem que deseja enviar para o S3 baixada na maquina antes de enviar.
+
 Retorno:
 ```bash
 {
@@ -125,7 +138,7 @@ Retorno:
 
 Endpoint:
 ```bash
-http://localhost:3000/excluir/code
+http://localhost:3000/excluir/:code
 ```
 Retorno:
 ```bash
@@ -140,7 +153,7 @@ Retorno:
 
 Endpoint:
 ```bash
-http://localhost:3000/filmes/search/code
+http://localhost:3000/filmes/search/:code
 ```
 Retorno:
 ```bash
@@ -150,6 +163,7 @@ Retorno:
 		"titulo": "filme",
 		"nota": 10,
 		"code": "code",
+		"imgUrl": "imgUrl.com",
 		"__v": 0
 	}
 }
@@ -161,7 +175,7 @@ Retorno:
 
 Endpoint:
 ```bash
-http://localhost:3000/filmes/atualizar/code
+http://localhost:3000/filmes/atualizar/:code
 ```
 Body JSON:
 ```bash
@@ -178,6 +192,7 @@ Retorno:
 		"titulo": "filme",
 		"nota": 10,
 		"code": "code",
+		"imgUrl": "imgUrl.com",
 		"__v": 0
 	}
 }
