@@ -1,29 +1,27 @@
-// ponto de entrada da aplicação
+// ponto de entrada da aplicação (sem iniciar o servidor aqui)
 
-require('dotenv').config()
+require('dotenv').config();
 
 const connectDB = require('./config/db');
 
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const autoRoutes = require('./routes/auth')
-const movieRoutes = require('./routes/movies')
+const autoRoutes = require('./routes/auth');
+const movieRoutes = require('./routes/movies');
 
-const app = express()
+const app = express();
 
+// conecta ao banco
 connectDB();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // Rota pública
-app.use('/login', autoRoutes)
+app.use('/login', autoRoutes);
 
 // Rotas privadas
-app.use('/filmes', movieRoutes)
+app.use('/filmes', movieRoutes);
 
-// inicia o servidor
-const PORTA = process.env.PORT;
-app.listen(PORTA, () => {
-    console.log('API rodando na porta 3000.')
-})
+// Exporta o app para o Vercel
+module.exports = app;

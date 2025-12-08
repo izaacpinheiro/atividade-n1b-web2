@@ -10,8 +10,8 @@ const { upload } = require("../config/multer");
 const router = express.Router();
 
 // aplica a autentição de dia da semana e do JWT (comentar os middlewares quando for rodar npm test)
-// router.use(weekdayMiddleware);
-// router.use(authMiddleware);
+router.use(weekdayMiddleware);
+router.use(authMiddleware);
 
 // rota GET /filmes/listar -> lista de filmes
 router.get("/listar", async (req, res) => {
