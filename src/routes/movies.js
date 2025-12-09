@@ -24,7 +24,7 @@ router.get("/listar", async (req, res) => {
 });
 
 // rota POST /filmes/inserir -> adicionar filme a lista
-router.post("/inserir", upload.single("imgUrl"), async (req, res) => {
+router.post("/inserir", upload.single("imagem"), async (req, res) => {
     try {
         const {titulo, nota, code} = req.body;
         const imgUrl = req.file.location;

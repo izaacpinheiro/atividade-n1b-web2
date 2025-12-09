@@ -22,7 +22,7 @@ describe("POST /filmes/inserir", () => {
         form.append("code", "jest1");
 
         const imagePath = path.join(__dirname, "imgTest.png");
-        form.append("imgUrl", fs.createReadStream(imagePath));
+        form.append("imagem", fs.createReadStream(imagePath));
 
         const result = await axios.post("http://localhost:3000/filmes/inserir", form,
             { headers: form.getHeaders() }
