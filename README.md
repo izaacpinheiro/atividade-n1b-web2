@@ -138,7 +138,7 @@ Retorno:
 
 Endpoint:
 ```bash
-http://localhost:3000/excluir/:code
+http://localhost:3000/filmes/excluir/:code
 ```
 Retorno:
 ```bash
