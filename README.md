@@ -1,6 +1,6 @@
 # 🎬 Sistema de Filmes
 
-Um sistema simples de gerenciamento de filmes. Usa MongoDB Atlas para armazenamento dos filmes e S3 para upload das imagens de capa dos filmes.
+Um sistema simples de gerenciamento de filmes. Usa **MongoDB Atlas** para armazenamento dos filmes e **Amazon S3** para upload das imagens de capa dos filmes.
 
 O projeto permite:
 - Fazer login (autenticação com token JWT)
@@ -43,6 +43,33 @@ O servidor iniciará em:
 ```
 http://localhost:3000
 ```
+## 📑 Variáveis de Ambiente
+Crie um arquivo `.env` na raiz do seu projeto com as seguintes variáveis:
+```
+# Porta do servidor para testes
+PORT=3000
+
+# Chave secreta usada pelo JWT
+JWT_SECRET=sua-chave-jwt-segura
+
+# Tempo de expiração do token
+JWT_EXPIRES_IN=4h
+
+# MongoDB Atlas
+ATLAS_URL=mongodb+srv://<username>:<password>@cluster0.umgdmxb.mongodb.net/?appName=Cluster0
+
+# AWS S3
+AWS_ACCESS_KEY_ID=sua-key-id-aws
+AWS_SECRET_ACCESS_KEY=sua-secret-key-aws
+AWS_REGION=regiao-do-seu-bucket
+AWS_BUCKET_NAME=nome-do-seu-bucket
+```
+> Substitua as varíaveis pelas suas varíaveis de ambiente.
+
+Para consegui acesso a um cluster do MongoDB, crie uma conta no [MongoDB Atlas](https://www.mongodb.com/products/platform) e crie um cluster. Copie a URL do seu cluster e cole no .env
+
+Para a configuração do bucket S3 da AWS acesse [Amazon S3](https://aws.amazon.com/pt/s3/), crie uma conta, complete as atapas de configuração e crie seu bucket. Copie e cole as informações do seu bucket para o .env
+
 ## 📚 Documentação
 
 ### Login
@@ -205,13 +232,13 @@ Antes de rodar os testes unitários, vá ao arquivo `/src/routes/movies.js` e co
 router.use(weekdayMiddleware); -> // router.use(weekdayMiddleware);
 router.use(authMiddleware);    -> // router.use(authMiddleware);
 ```
-> É necessário comentar essas linhas pois se não os middlewares serão processados e os testes não conseguirão fazer as requisições com o Axios.
+> ⚠️ É necessário comentar essas linhas pois se não os middlewares serão processados e os testes não conseguirão fazer as requisições com o Axios.
 
-Rode o servidor:
+Rode o servidor local para testes:
 ```bash
 npm start
 ```
-Em outro terminal, rode o comando:
+Em outro terminal, acesse a pasta do projeto e rode o comando:
 ```bash
 npm test
 ```
